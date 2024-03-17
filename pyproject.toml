@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "timebalancer"
+version = "0.1.0"
+description = "GUI App to time tasks and manage break"
+authors = ["sarojdongol"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pygame = "^2.5.2"
+pytest = "^8.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
