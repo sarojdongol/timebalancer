@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from .timer import Timer
+from config import Settings
+from interface import Timer
 from collections import deque
 
 
@@ -24,5 +25,18 @@ class PomodoroTimer(tk.Tk):
         container.grid()
         container.columnconfigure(0, weight=1)
 
-        timer_frame = Timer(self, container)
+        self.frames = dict()
+        timer_frame = Timer(container, self, lambda: self.show_frame(Settings))
         timer_frame.grid(row=0, column=0, sticky="NESW")
+
+        settings_frame = Settings(container, self, lambda: self.show_frame(Timer))
+        settings_frame.grid(row=0, column=0, sticky="NESW")
+
+        self.frames[Timer] = timer_frame
+        self.frames[Settings] = settings_frame
+
+        self.show_frame(Timer)
+
+    def show_frame(self, container):
+        frame = self.frames[container]
+        frame.tkraise()

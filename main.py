@@ -1,5 +1,5 @@
-from interface import pomodoro
+from interface import PomodoroTimer
 
 
-app = pomodoro.PomodoroTimer()
+app = PomodoroTimer()
 app.mainloop()

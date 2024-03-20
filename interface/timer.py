@@ -5,15 +5,15 @@ from collections import deque
 
 class Timer(ttk.Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, show_settings):
         super().__init__(parent)
 
         self.controller = controller
-        pomodoro_time = int(controller.pomodoro.get())
-        self.current_time = tk.StringVar(value=f"{pomodoro_time:02d}:00"
-    
+        pomodoro_time = int(self.controller.pomodoro.get())
+        self.current_time = tk.StringVar(value=f"{pomodoro_time:02d}:00")
 
-        self.current_timer_label = tk.StringVar(value=controller.timer_schedule[0])
+        self.current_timer_label = tk.StringVar(
+            value=self.controller.timer_schedule[0])
         self.timer_running = False
         self._timer_decrement_job = None
         timer_description = ttk.Label(self,
@@ -23,14 +23,25 @@ class Timer(ttk.Frame):
                                sticky="W",
                                padx=(10, 0),
                                pady=(10, 0))
+
+        settings_button = ttk.Button(self,
+                                     text="Settings",
+                                     command=show_settings,
+                                     cursor="hand2")
+        settings_button.grid(row=0,
+                             column=1,
+                             sticky="E",
+                             padx=10,
+                             pady=(10, 0))
+
         timer_frame = ttk.Frame(self, height="100")
-        timer_frame.grid(row=1, column=0, pady=(10, 0), sticky="NSEW")
+        timer_frame.grid(row=1, column=0, columnspan=2, pady=(10, 0), sticky="NSEW")
 
         timer_counter = ttk.Label(timer_frame, textvariable=self.current_time)
         timer_counter.place(relx=0.5, rely=0.5, anchor="center")
 
         button_container = ttk.Frame(self, padding=10)
-        button_container.grid(row=2, column=0, sticky="EW")
+        button_container.grid(row=2, column=0, columnspan=2, sticky="EW")
 
         button_container.columnconfigure((0, 1, 2), weight=1)
 
@@ -73,7 +84,7 @@ class Timer(ttk.Frame):
 
     def reset_timer(self):
         self.stop_timer()
-        pomodoro_time = int(self.controller.pomodoro_time.get())
+        pomodoro_time = int(self.controller.pomodoro.get())
         self.current_time.set(f"{pomodoro_time:02d}:00")
         self.timer_schedule = deque(self.controller.timer_order)
         self.current_timer_label.set(self.controller.timer_schedule[0])
