@@ -4,11 +4,15 @@ version = "0.1.0"
 description = "GUI App to time tasks and manage break"
 authors = ["sarojdongol"]
 readme = "README.md"
+package-mode = false
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
 pygame = "^2.5.2"
 pytest = "^8.1.1"
+tk = "^0.1.0"
+pillow = "^10.2.0"
 
 
 [build-system]
