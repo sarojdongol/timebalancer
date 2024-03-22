@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from ttkbootstrap import Style
 from config import Settings
 from interface import Timer
 from collections import deque
@@ -16,7 +17,7 @@ class PomodoroTimer(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        style = ttk.Style(self)
+        style = Style()
         style.theme_use("clam")
 
         style.configure("Timer.TFrame", background=COLOUR_LIGHT_BACKGROUND)
