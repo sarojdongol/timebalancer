@@ -5,26 +5,25 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 from datetime import date
 
-class TaskList:
-  def __init__(self, master):
-    
-    self.master = master
-    master.title("Task List")
+class TaskHandler(ttk.Frame):
+  def __init__(self, parent,controller,show_settings):
+    super().__init__(parent)
 
+  
     # Create a frame to hold all the elements
-    self.task_frame = Frame(master)
-    self.task_frame.pack(padx=10, pady=10)
+    self.task_frame = ttk.Frame(parent)
+    self.task_frame.grid(padx=10, pady=10)
 
     # Label for task description
     self.task_label = ttk.Label(self.task_frame, text="Task:")
     self.task_label.grid(row=0, column=0,sticky="EW")
 
     # Entry for task description
-    self.task_entry = Entry(self.task_frame)
+    self.task_entry = ttk.Entry(self.task_frame)
     self.task_entry.grid(row=0, column=1,sticky="EW",padx=5, pady=5)
 
     # Label to display due date (initially empty)
-    self.due_date_label = Label(self.task_frame, text="Due Date: ")
+    self.due_date_label = ttk.Label(self.task_frame, text="Due Date: ")
     self.due_date_label.grid(row=0, column=2,sticky="EW")
 
      # Button to set due date
@@ -40,7 +39,7 @@ class TaskList:
     self.selected_task_index.set(-1) 
 
     # Button to add task
-    self.add_button = ttk.Button(self.task_frame, text="Add Task", command=self.add_task,bootstyle=(INFO, OUTLINE))
+    self.add_button = ttk.Button(self.task_frame, text="Add Task", command=self.add_task, bootstyle=(INFO))
     self.add_button.grid(row=0, column=5)
 
   def add_task(self):
@@ -52,12 +51,6 @@ class TaskList:
       self.due_date_label.config(text="Due Date: ")  # Reset due date label
     else:
       messagebox.showinfo("Add Task", "Please enter a task description.")
-
-if __name__ == "__main__":
-  root = ttk.Window(themename="superhero",position=(1000,1000),resizable=(False,False))
-  task_list = TaskList(root)
-  root.mainloop()
-
 
 
 # uses DatePickerPopup() from ttkbootstrap to Date

@@ -1,4 +1,4 @@
-from config.settings import Setting
+from config.setting import Setting
 
 def test_get_config():
     width = 900
