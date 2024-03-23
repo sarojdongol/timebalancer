@@ -12,7 +12,7 @@ class Timer(ttk.Frame):
         # use theme from ttkbootstrap        
 
         self.controller = controller
-        pomodoro_time = int(self.controller.pomodoro.get())
+        pomodoro_time = int(self.controller.pomodoro_time.get())
         self.current_time = ttk.StringVar(value=f"{pomodoro_time:02d}:00")
 
         self.current_timer_label = ttk.StringVar(
@@ -102,7 +102,6 @@ class Timer(ttk.Frame):
 
     def decrement_time(self):
         current_time = self.current_time.get()
-        print(current_time)
         if self.timer_running and current_time != "00:00":
             minutes, seconds = current_time.split(":")
             if int(seconds) > 0:
