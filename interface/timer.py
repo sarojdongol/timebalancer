@@ -46,7 +46,7 @@ class Timer(ttk.Frame):
                          sticky="NSEW")
 
         timer_counter = ttk.Label(timer_frame, textvariable=self.current_time)
-        timer_counter.place(relx=0.5, rely=0.5, anchor="center")
+        timer_counter.place(relx=0.5, rely=0.5, anchor="center" )
 
         button_container = ttk.Frame(self, padding=10)
         button_container.grid(row=2, column=0, columnspan=2, sticky="EW")
