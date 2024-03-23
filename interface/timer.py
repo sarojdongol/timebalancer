@@ -95,7 +95,7 @@ class Timer(ttk.Frame):
 
     def reset_timer(self):
         self.stop_timer()
-        pomodoro_time = int(self.controller.pomodoro.get())
+        pomodoro_time = int(self.controller.pomodoro_time.get())
         self.current_time.set(f"{pomodoro_time:02d}:00")
         self.timer_schedule = deque(self.controller.timer_order)
         self.current_timer_label.set(self.controller.timer_schedule[0])

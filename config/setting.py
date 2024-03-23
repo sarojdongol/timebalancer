@@ -27,7 +27,7 @@ class Settings(ttk.Frame):
                                     to=120,
                                     increment=1,
                                     justify="center",
-                                    textvariable=controller.pomodoro,
+                                    textvariable=controller.pomodoro_time,
                                     width=10)
 
         pomodoro_input.grid(column=1, row=0, sticky="EW")
@@ -43,7 +43,7 @@ class Settings(ttk.Frame):
                                       to=60,
                                       increment=1,
                                       justify="center",
-                                      textvariable=controller.long_break,
+                                      textvariable=controller.long_break_time,
                                       width=10)
 
         long_break_input.grid(column=1, row=1, sticky="EW")
@@ -59,7 +59,7 @@ class Settings(ttk.Frame):
                                        to=30,
                                        increment=1,
                                        justify="center",
-                                       textvariable=controller.short_break,
+                                       textvariable=controller.short_break_time,
                                        width=10)
 
         short_break_input.grid(column=1, row=2, sticky="EW")
