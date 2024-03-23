@@ -34,13 +34,13 @@ class PomodoroTimer(tk.Tk):
             "Long Break"
         ]
         self.timer_schedule = deque(self.timer_order)
-        container = ttk.Frame(app,bootstyle="info")
+        container = ttk.Frame(app,style='info.TFrame')
         container.grid()
         container.columnconfigure(0, weight=1)
 
         self.frames = dict()
         timer_frame = Timer(container, self, lambda: self.show_frame(Settings))
-        timer_frame.grid(row=0, column=0, sticky="NESW")
+        timer_frame.grid(row=0, column=0, sticky="NESW", padx=10, pady=10)
 
         settings_frame = Settings(container, self,
                                   lambda: self.show_frame(Timer))

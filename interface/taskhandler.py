@@ -12,7 +12,7 @@ class TaskHandler(ttk.Frame):
   
     # Create a frame to hold all the elements
     self.task_frame = ttk.Frame(parent)
-    self.task_frame.grid(padx=10, pady=10)
+    self.task_frame.grid(padx=5, pady=5)
 
     # Label for task description
     self.task_label = ttk.Label(self.task_frame, text="Task:")
@@ -20,7 +20,7 @@ class TaskHandler(ttk.Frame):
 
     # Entry for task description
     self.task_entry = ttk.Entry(self.task_frame)
-    self.task_entry.grid(row=0, column=1,sticky="EW",padx=5, pady=5)
+    self.task_entry.grid(row=0, column=1,sticky="EW",padx=2, pady=2)
 
     # Label to display due date (initially empty)
     self.due_date_label = ttk.Label(self.task_frame, text="Due Date: ")
