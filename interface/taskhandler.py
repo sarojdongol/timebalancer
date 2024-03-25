@@ -11,13 +11,10 @@ class TaskHandler(ttk.Frame):
   def __init__(self, parent,controller,show_settings):
     super().__init__(parent,padding=(20,10))
 
-    # Create empty list to store tasks
-    self.tasks = []
-
   
     # Create a frame to hold all the elements
     self.task_frame = ttk.Frame(parent)
-    self.task_frame.grid(padx=5, pady=5,sticky="NESW")
+    self.task_frame.grid(sticky="NESW")
 
     # Label for task description
     self.task_label = ttk.Label(self.task_frame, text="Task:")
@@ -35,9 +32,12 @@ class TaskHandler(ttk.Frame):
     self.date_button = ttk.DateEntry(self.task_frame,bootstyle=SUCCESS, startdate=date(2023,2,1))
     self.date_button.grid(row=0, column=3, sticky="EW",padx=2,pady=2)
 
-    # Listbox to display tasks
-    #self.task_list = Listbox(self.task_frame,width=50,height=50,selectbackground="magenta")
-    #self.task_list.grid(row=2, columnspan=3)
+    self.status_label = ttk.Label(self.task_frame, text="Status:")
+    self.status_label.grid(row=0, column=4, sticky="EW",padx=2,pady=2)
+
+    self.status_button = ttk.Combobox(self.task_frame, values=["IN-PROGRESS", "DONE","BACKLOG"], bootstyle=PRIMARY)
+    self.status_button.grid(row=0, column=5, sticky="EW",padx=2,pady=2)
+
 
     # Variable to store selected task index
     self.selected_task_index = StringVar()
@@ -47,7 +47,7 @@ class TaskHandler(ttk.Frame):
 
 
     coldata = [
-        {"text": "Task", "stretch": False},
+        {"text": "Task", "stretch": True},
         {"text": "Due Date", "stretch": False},
         {"text": "Status", "stretch": False}
     ]
@@ -75,17 +75,43 @@ class TaskHandler(ttk.Frame):
     
     task_text = self.task_entry.get()
     due_date = self.date_button.entry.get()
+    status = self.status_button.get()
     
     if task_text:
-      self.dt.insert_row(END, values=(task_text, due_date))
-      # write into tableview ttk  inter bootstrap
+      self.dt.insert_row(END, values=(task_text, due_date,status))
+      self.dt.load_table_data()
 
     else:
       messagebox.showinfo("Add Task", "Please enter a task description.")
 
-
-
-
-
-
-# uses DatePickerPopup() from ttkbootstrap to Date
+  
+  def create_edit_button(self, item_id):
+        """
+        Creates an edit button for the specified table row.
+        """
+        edit_button = ttk.Button(self.task_frame, text="Edit", command=lambda item=item_id: self.edit_task(item))
+        self.table.set(item_id, "#1", window=edit_button)
+        
+  def edit_task(self, item_id):
+        """Prompts the user to update the task details and status."""
+        task_data = self.tasks[int(item_id) - 1]
+        new_task = ttk.simpledialog.askstring("Edit Task", f"Task: {task_data['task']}")
+        new_description = ttk.simpledialog.askstring(
+            "Edit Task", f"Description: {task_data['description']}"
+        )
+        if new_task or new_description:
+            # Update task data if either task or description is changed
+            if new_task:
+                task_data["task"] = new_task
+                self.table.set(item_id, "Task", new_task)
+            if new_description:
+                task_data["description"] = new_description
+                self.table.set(item_id, "Description", new_description)
+            # Update status using the combobox selection
+            self.update_task_status(item_id, self.status_var.get())
+  
+  def update_task_status(self, item_id, new_status):
+        """Updates the status of a task in the table view."""
+        self.tasks[int(item_id) - 1]["status"] = new_status
+        self.table.set(item_id, "Status", new_status)
+  # Place button in the second column

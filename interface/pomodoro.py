@@ -25,7 +25,6 @@ class PomodoroTimer(tk.Tk):
         self.title("Pomodoro Timer")
         self.app.columnconfigure(0, weight=1)
         self.app.rowconfigure(1, weight=1)
-
         self.pomodoro_time = ttk.StringVar(value=25)
         self.long_break_time = ttk.StringVar(value=15)
         self.short_break_time = ttk.StringVar(value=5)
