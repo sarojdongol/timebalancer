@@ -41,7 +41,7 @@ class PomodoroTimer(tk.Tk):
 
         self.frames = dict()
         timer_frame = Timer(container, self, lambda: self.show_frame(Settings))
-        timer_frame.grid(row=0, column=0, sticky="NESW", padx=10, pady=10)
+        timer_frame.grid(row=0, column=0, sticky="NESW", padx=5, pady=5)
 
         settings_frame = Settings(container, self,
                                   lambda: self.show_frame(Timer))
