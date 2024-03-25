@@ -2,6 +2,10 @@ import tkinter as tk
 from collections import deque
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
+from PIL import Image, ImageTk
+from pathlib import Path
+import os
+
 
 
 class Timer(ttk.Frame):
@@ -80,6 +84,9 @@ class Timer(ttk.Frame):
                                   bootstyle=INFO,
                                   cursor="hand2")
         reset_button.grid(row=0, column=2, sticky="E")
+
+
+
         self.decrement_time()
 
     def start_timer(self):
@@ -129,9 +136,14 @@ class Timer(ttk.Frame):
                 self.current_time.set(f"{pomodoro_time:02d}:00")
             elif next_up == "Short Break":
                 short_break_time = int(self.controller.short_break_time.get())
+                
                 self.current_time.set(f"{short_break_time:02d}:00")
             elif next_up == "Long Break":
                 long_break_time = int(self.controller.long_break_time.get())
                 self.current_time.set(f"{long_break_time:02d}:00")
 
             self._timer_decrement_job = self.after(1000, self.decrement_time)
+
+
+    def get_break_images(self):
+        pass

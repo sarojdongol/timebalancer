@@ -5,6 +5,7 @@ import ttkbootstrap as ttk
 from config import Settings
 from interface import Timer
 from interface.taskhandler import TaskHandler
+from interface.excercise_selector import ExcerciseSelector
 from collections import deque
 
 COLOUR_PRIMARY = "#2e3f4f"
@@ -50,9 +51,17 @@ class PomodoroTimer(tk.Tk):
                                   lambda: self.show_frame(TaskHandler))
         task_frame.grid(row=0, column=0, sticky="NESW")
 
+
+        excercise_frame = ExcerciseSelector(container, self,
+                                  lambda: self.show_frame(ExcerciseSelector), lambda:self.show_frame(Timer))
+        excercise_frame.grid(row=0, column=0, sticky="EW")
+
+        
+
         self.frames[Timer] = timer_frame
         self.frames[Settings] = settings_frame
         self.frames[TaskHandler] = task_frame
+        self.frames[ExcerciseSelector] = excercise_frame
 
         self.show_frame(Timer)
 
