@@ -4,15 +4,20 @@ from tkinter import Tk, Frame, Label, Button, Listbox, StringVar, messagebox, En
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 from datetime import date
+from ttkbootstrap.tableview import Tableview
+
 
 class TaskHandler(ttk.Frame):
   def __init__(self, parent,controller,show_settings):
-    super().__init__(parent)
+    super().__init__(parent,padding=(20,10))
+
+    # Create empty list to store tasks
+    self.tasks = []
 
   
     # Create a frame to hold all the elements
     self.task_frame = ttk.Frame(parent)
-    self.task_frame.grid(padx=5, pady=5)
+    self.task_frame.grid(padx=5, pady=5,sticky="NESW")
 
     # Label for task description
     self.task_label = ttk.Label(self.task_frame, text="Task:")
@@ -28,29 +33,59 @@ class TaskHandler(ttk.Frame):
 
      # Button to set due date
     self.date_button = ttk.DateEntry(self.task_frame,bootstyle=SUCCESS, startdate=date(2023,2,1))
-    self.date_button.grid(row=0, column=3, sticky="EW",padx=5,pady=5)
+    self.date_button.grid(row=0, column=3, sticky="EW",padx=2,pady=2)
 
     # Listbox to display tasks
-    self.task_list = Listbox(self.task_frame,width=50,height=50,selectbackground="magenta")
-    self.task_list.grid(row=2, columnspan=3)
+    #self.task_list = Listbox(self.task_frame,width=50,height=50,selectbackground="magenta")
+    #self.task_list.grid(row=2, columnspan=3)
 
     # Variable to store selected task index
     self.selected_task_index = StringVar()
     self.selected_task_index.set(-1) 
 
-    # Button to add task
+ 
+
+
+    coldata = [
+        {"text": "Task", "stretch": False},
+        {"text": "Due Date", "stretch": False},
+        {"text": "Status", "stretch": False}
+    ]
+
+    self.dt = Tableview(
+        master=parent,
+        coldata=coldata,
+        paginated=True,
+        bootstyle=PRIMARY,
+        autoalign=True
+    )
+
+    self.dt.grid(row=2, column=0, columnspan=3,sticky="NESW")
+    
+  
+       # Button to add task
     self.add_button = ttk.Button(self.task_frame, text="Add Task", command=self.add_task, bootstyle=(INFO))
-    self.add_button.grid(row=0, column=5)
+    self.add_button.grid(row=0, column=6)
+
+
+  
+    
 
   def add_task(self):
+    
     task_text = self.task_entry.get()
     due_date = self.date_button.entry.get()
+    
     if task_text:
-      self.task_list.insert(END, task_text + " " + due_date)
-      self.task_entry.delete(0, END)  # Clear entry field after adding task
-      self.due_date_label.config(text="Due Date: ")  # Reset due date label
+      self.dt.insert_row(END, values=(task_text, due_date))
+      # write into tableview ttk  inter bootstrap
+
     else:
       messagebox.showinfo("Add Task", "Please enter a task description.")
+
+
+
+
 
 
 # uses DatePickerPopup() from ttkbootstrap to Date

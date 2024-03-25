@@ -7,9 +7,12 @@ from ttkbootstrap.constants import *
 class Timer(ttk.Frame):
 
     def __init__(self, parent, controller, show_settings):
-        super().__init__(parent)
+        super().__init__(parent, padding=(20,10))
         #self["style"] = "Background.TFrame"
-        # use theme from ttkbootstrap        
+        # use theme from ttkbootstrap 
+        self.parent = parent
+        self.parent.columnconfigure((0,1,2,3,4), weight=1)
+        self.parent.rowconfigure((0,1,2,3,4), weight=1)   
 
         self.controller = controller
         pomodoro_time = int(self.controller.pomodoro_time.get())
@@ -38,26 +41,29 @@ class Timer(ttk.Frame):
                              padx=10,
                              pady=(10, 0))
 
-        timer_frame = ttk.Frame(self, height="100")
+        timer_frame = ttk.Frame(self, width=200, height=200, relief='raised', borderwidth=5)
         timer_frame.grid(row=1,
                          column=0,
                          columnspan=2,
                          pady=(10, 0),
+                         padx=(10, 0),
                          sticky="NSEW")
 
-        timer_counter = ttk.Label(timer_frame, textvariable=self.current_time)
+        timer_counter = ttk.Label(timer_frame, textvariable=self.current_time, font=("Arial", 55))
         timer_counter.place(relx=0.5, rely=0.5, anchor="center" )
 
         button_container = ttk.Frame(self, padding=10)
-        button_container.grid(row=2, column=0, columnspan=2, sticky="EW")
+        button_container.grid(row=2, column=0, columnspan=2, sticky="NSEW")
 
         button_container.columnconfigure((0, 1, 2), weight=1)
+        button_container.rowconfigure((0, 1, 2), weight=1)
 
         self.start_button = ttk.Button(button_container,
                                        text="Start",
                                        command=self.start_timer,
                                        bootstyle="success",
-                                       cursor="hand2")
+                                       cursor="hand2"
+                                       )
         self.start_button.grid(row=0, column=0, sticky="EW")
 
         self.stop_button = ttk.Button(button_container,
@@ -73,7 +79,7 @@ class Timer(ttk.Frame):
                                   command=self.reset_timer,
                                   bootstyle=INFO,
                                   cursor="hand2")
-        reset_button.grid(row=0, column=2, sticky="EW")
+        reset_button.grid(row=0, column=2, sticky="E")
         self.decrement_time()
 
     def start_timer(self):

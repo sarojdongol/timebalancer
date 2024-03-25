@@ -23,12 +23,12 @@ class PomodoroTimer(tk.Tk):
         #self.style = Style(theme="superhero")
         self.app = app
         self.title("Pomodoro Timer")
-        self.columnconfigure(0, weight=1)
-        self.rowconfigure(1, weight=1)
+        self.app.columnconfigure(0, weight=1)
+        self.app.rowconfigure(1, weight=1)
 
-        self.pomodoro_time = tk.StringVar(value=25)
-        self.long_break_time = tk.StringVar(value=15)
-        self.short_break_time = tk.StringVar(value=5)
+        self.pomodoro_time = ttk.StringVar(value=25)
+        self.long_break_time = ttk.StringVar(value=15)
+        self.short_break_time = ttk.StringVar(value=5)
         self.timer_order = [
             "Pomodoro", "Short Break", "Pomodoro", "Short Break", "Pomodoro",
             "Long Break"
@@ -36,7 +36,8 @@ class PomodoroTimer(tk.Tk):
         self.timer_schedule = deque(self.timer_order)
         container = ttk.Frame(app,style='info.TFrame')
         container.grid()
-        container.columnconfigure(0, weight=1)
+        container.columnconfigure((0,1,2,3,4), weight=1)
+        container.rowconfigure((0,1,2,3,4), weight=1)
 
         self.frames = dict()
         timer_frame = Timer(container, self, lambda: self.show_frame(Settings))
