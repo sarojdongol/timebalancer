@@ -144,3 +144,8 @@ class Timer(ttk.Frame):
 
     def get_break_images(self):
         pass
+
+
+
+    def configure_frame(self):
+        pass
