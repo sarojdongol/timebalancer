@@ -18,13 +18,7 @@ COLOUR_DARK_TEXT = "#8095a8"
 
 class PomodoroTimer(tk.Tk):
     def __init__(self, app, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # self.style = Style(theme="superhero")
         self.app = app
-        self.title("Pomodoro Timer")
-        self.app.columnconfigure(0, weight=1)
-        self.app.rowconfigure(1, weight=1)
         self.pomodoro_time = ttk.StringVar(value=25)
         self.long_break_time = ttk.StringVar(value=15)
         self.short_break_time = ttk.StringVar(value=5)
@@ -66,6 +60,8 @@ class PomodoroTimer(tk.Tk):
         self.frames[ExcerciseSelector] = excercise_frame
 
         self.show_frame(Timer)
+
+        self.app.mainloop()
 
     def show_frame(self, container):
         frame = self.frames[container]
