@@ -16,7 +16,7 @@ COLOUR_LIGHT_TEXT = "#eee"
 COLOUR_DARK_TEXT = "#8095a8"
 
 
-class PomodoroTimer(tk.Tk):
+class PomodoroTimer():
     def __init__(self, app, *args, **kwargs):
         self.app = app
         self.pomodoro_time = ttk.StringVar(value=25)
